@@ -22,7 +22,7 @@ const MENU_DATA = {
       name: "Crepe (Savory)",
       nameAr: "كريب حادق",
       items: [
-        { id: "cs-1", name: "سجق ", nameEn: "Sausage", description: "موتزاريلا وخضار", price: 200, image: "assets/images/migrated-cs-1.jpg" },
+        { id: "cs-1", name: "سجق ", nameEn: "Sausage", description: "موتزاريلا وخضار", price: 100, image: "assets/images/migrated-cs-1.jpg" },
         { id: "cs-2", name: "برجر لحمة", nameEn: "Beef Burger", description: "موتزاريلا وخضار", price: 120, image: "assets/images/migrated-cs-2.jpg" },
         { id: "cs-3", name: "سوسيس", nameEn: "Hot Dog", description: "موتزاريلا وخضار", price: 150, image: "assets/images/migrated-cs-3.jpg" },
         { id: "cs-4", name: "فراخ باربيكيو", nameEn: "BBQ Chicken", description: "فراخ، مشروم، صوص باربيكيو", price: 110, image: "assets/images/migrated-cs-4.jpg" },
