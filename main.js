@@ -33,6 +33,7 @@
     cartBar: document.getElementById("cart-bar"),
     cartCount: document.getElementById("cart-count"),
     cartTotal: document.getElementById("cart-total"),
+    userContact: document.getElementById("user-contact"),
   };
 
   /** Format single or multi-size prices */
@@ -139,6 +140,13 @@
     messageLines.push("");
     messageLines.push("المجموع الكلي: " + total + " ج.م");
     messageLines.push("رقم الطلب: " + orderNumber);
+
+    if (els.userContact) {
+      var contactValue = els.userContact.value.trim();
+      if (contactValue) {
+        messageLines.push("رقم التواصل للعميل: " + contactValue);
+      }
+    }
 
     var encodedMessage = encodeURIComponent(messageLines.join("\n"));
     var whatsappUrl = "https://wa.me/201008674032?text=" + encodedMessage;
