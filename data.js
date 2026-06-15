@@ -260,6 +260,6 @@ const MENU_DATA = {
 };
 
 const SOCIAL_LINKS = {
-  whatsapp: "https://wa.me/201034356136",
-  facebook: " https://www.facebook.com/share/1EJoeVnCjk/?mibextid=wwXIfr",
+  whatsapp: "https://wa.me/201091728680",
+  facebook: " https://www.facebook.com/share/1chNVD18vN/?mibextid=wwXIfr",
 };
