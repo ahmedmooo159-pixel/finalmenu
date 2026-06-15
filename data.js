@@ -8,10 +8,10 @@
 const MENU_DATA = {
   restaurant: {
     name: " لذة الملوك",
-    nameEn: "Pizza Lazat Al-Molouk",
+    nameEn: " Lazat Al-Molouk",
     welcome: "فطائر - بيتزا - باستا",
     tagline: "لما البيتزا تبقى تحفة فنية مش مجرد أكلة",
-    logo: "D:menu fassetslogoWhatsApp Image 2026-06-13 at 9.41.01 PM.jpeg",
+    logo: "assets/logo/logo.jpeg",
     phones: ["01034356136", "01123889069", "01034352138"],
     address: "سوق المنطقة السابعة بجوار ماركت أبو غزالة",
     deliveryNote: "أسرع دليفرى في مصر",
