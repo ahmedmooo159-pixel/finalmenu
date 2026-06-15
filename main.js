@@ -156,7 +156,7 @@
       descHtml +
       '<p class="card-price">' + formatPrice(item) + "</p>" +
       '<div class="card-actions">' +
-      '<button type="button" class="btn-add-cart ripple-btn" onclick="addToCart(\'' + item.id + '\', \'" + safeName + "\', ' + itemPrice + ')">أضف للسلة</button>' +
+      '<button type="button" class="btn-add-cart ripple-btn">أضف للسلة</button>' +
       "</div>" +
       "</div>";
 
@@ -165,6 +165,13 @@
       img.src = PLACEHOLDER_IMG;
       img.classList.add("is-placeholder");
     });
+
+    var addButton = article.querySelector(".btn-add-cart");
+    if (addButton) {
+      addButton.addEventListener("click", function () {
+        addToCart(item.id, item.name, itemPrice);
+      });
+    }
 
     return article;
   }

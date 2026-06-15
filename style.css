@@ -545,13 +545,25 @@ button {
   padding: 1.5rem 1rem 1rem;
 }
 
-.footer-logo-group {
-  position: relative;
-  display: inline-flex;
+.footer-socials {
+  display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   margin: 0 auto 1rem;
-  cursor: pointer;
+}
+
+.footer-logo-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-logo-text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .footer-logo {
@@ -568,28 +580,9 @@ button {
   box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
 }
 
-.footer-logo-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  background: rgba(0, 0, 0, 0.32);
-  border-radius: 50%;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.footer-logo-group:hover .footer-logo-overlay {
-  opacity: 1;
-  visibility: visible;
-}
-
 .footer-logo-icon {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
