@@ -104,6 +104,11 @@
     }
   }
 
+  function clearCart() {
+    cart = [];
+    updateCartUI();
+  }
+
   function sendOrderToWhatsApp() {
     if (!cart.length) {
       return;
@@ -125,10 +130,10 @@
 
     messageLines.push("");
     messageLines.push("المجموع الكلي: " + total + " ج.م");
-    messageLines.push("رقم الطلب: 01091728680");
+    messageLines.push("رقم التواصل: +20 1008674032");
 
     var encodedMessage = encodeURIComponent(messageLines.join("\n"));
-    var whatsappUrl = "https://wa.me/201091728680?text=" + encodedMessage;
+    var whatsappUrl = "https://wa.me/201008674032?text=" + encodedMessage;
 
     window.open(whatsappUrl, "_blank");
   }
@@ -383,6 +388,7 @@
 
   window.addToCart = addToCart;
   window.sendOrderToWhatsApp = sendOrderToWhatsApp;
+  window.clearCart = clearCart;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

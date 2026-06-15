@@ -449,20 +449,44 @@ button {
   box-shadow: 0 8px 20px rgba(128, 0, 0, 0.18);
 }
 
+.btn-clear-cart,
 .btn-whatsapp {
   padding: 0.9rem 1.2rem;
   border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.btn-clear-cart {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255,255,255,0.2);
+}
+
+.btn-clear-cart:hover,
+.btn-clear-cart:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.12);
+}
+
+.btn-whatsapp {
   background: #25d366;
   color: #fff;
-  font-weight: 700;
-  border: 1px solid rgba(37, 211, 102, 0.24);
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  border-color: rgba(37, 211, 102, 0.24);
 }
 
 .btn-whatsapp:hover,
 .btn-whatsapp:focus-visible {
   background: #1ebe55;
   box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
+}
+
+.cart-actions-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 /* ─── Floating cart bar ─── */
