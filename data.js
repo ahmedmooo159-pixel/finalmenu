@@ -7,7 +7,7 @@
 
 const MENU_DATA = {
   restaurant: {
-    name: "بيتزا لذة الملوك",
+    name: " لذة الملوك",
     nameEn: "Pizza Lazat Al-Molouk",
     welcome: "فطائر - بيتزا - باستا",
     tagline: "لما البيتزا تبقى تحفة فنية مش مجرد أكلة",
