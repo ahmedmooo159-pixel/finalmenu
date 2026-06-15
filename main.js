@@ -9,6 +9,7 @@
   let activeCategoryId = null;
   let searchTimeout = null;
   let cart = [];
+  let orderCounter = Number(localStorage.getItem("orderCounter") || 1000);
 
   const els = {
     restaurantName: document.getElementById("restaurant-name"),
@@ -109,6 +110,12 @@
     updateCartUI();
   }
 
+  function getNextOrderNumber() {
+    orderCounter += 1;
+    localStorage.setItem("orderCounter", orderCounter);
+    return orderCounter;
+  }
+
   function sendOrderToWhatsApp() {
     if (!cart.length) {
       return;
@@ -128,9 +135,10 @@
       messageLines.push(line);
     });
 
+    var orderNumber = getNextOrderNumber();
     messageLines.push("");
     messageLines.push("المجموع الكلي: " + total + " ج.م");
-    messageLines.push("رقم التواصل: +20 1008674032");
+    messageLines.push("رقم الطلب: " + orderNumber);
 
     var encodedMessage = encodeURIComponent(messageLines.join("\n"));
     var whatsappUrl = "https://wa.me/201008674032?text=" + encodedMessage;
