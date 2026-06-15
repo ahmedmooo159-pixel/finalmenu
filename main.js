@@ -40,9 +40,9 @@
   function formatPrice(item) {
     if (item.prices) {
       const parts = [];
-      if (item.prices.L != null) parts.push("L: " + item.prices.L);
-      if (item.prices.M != null) parts.push("M: " + item.prices.M);
-      if (item.prices.S != null) parts.push("S: " + item.prices.S);
+      if (item.prices.S != null) parts.push("صغير: " + item.prices.S);
+      if (item.prices.M != null) parts.push("وسط: " + item.prices.M);
+      if (item.prices.L != null) parts.push("كبير: " + item.prices.L);
       if (parts.length === 0) return "اسأل عن السعر";
       return parts.join(" | ") + " ج.م";
     }
@@ -67,21 +67,67 @@
     return image;
   }
 
-  function getPriceValue(item) {
+  function getAvailableSizes(item) {
+    if (!item.prices) return [];
+
+    return ["S", "M", "L"].filter(function (size) {
+      return item.prices[size] != null;
+    });
+  }
+
+  function getDefaultSize(item) {
+    var sizes = getAvailableSizes(item);
+    if (sizes.indexOf("M") !== -1) return "M";
+    return sizes.length ? sizes[0] : null;
+  }
+
+  function getSizeLabel(size) {
+    if (size === "S") return "صغير";
+    if (size === "M") return "وسط";
+    if (size === "L") return "كبير";
+    return size || "";
+  }
+
+  function getItemDisplayName(item, category) {
+    var categoryLabel = category ? getCategoryLabel(category) : "";
+    var baseName = item.name || "";
+
+    if (!categoryLabel) return baseName;
+    return categoryLabel + " - " + baseName;
+  }
+
+  function getCartItemName(item, category, size) {
+    var displayName = getItemDisplayName(item, category);
+    if (!size) return displayName;
+    return displayName + " (" + getSizeLabel(size) + ")";
+  }
+
+  function getPriceForSize(item, size) {
     if (item.price != null) return item.price;
-    if (item.prices) return item.prices.M ?? item.prices.L ?? item.prices.S ?? 0;
+    if (item.prices) {
+      if (size && item.prices[size] != null) return item.prices[size];
+      var defaultSize = getDefaultSize(item);
+      if (defaultSize && item.prices[defaultSize] != null) return item.prices[defaultSize];
+    }
     return 0;
   }
 
-  function addToCart(id, name, price) {
+  function getPriceValue(item) {
+    if (item.price != null) return item.price;
+    if (item.prices) return getPriceForSize(item, getDefaultSize(item));
+    return 0;
+  }
+
+  function addToCart(id, name, price, options) {
+    var itemKey = options && options.key ? options.key : id;
     var existing = cart.find(function (entry) {
-      return entry.id === id;
+      return entry.key === itemKey;
     });
 
     if (existing) {
       existing.quantity += 1;
     } else {
-      cart.push({ id: id, name: name, price: price || 0, quantity: 1 });
+      cart.push({ id: id, key: itemKey, name: name, price: price || 0, quantity: 1 });
     }
 
     updateCartUI();
@@ -155,17 +201,26 @@
   }
 
   /** Build a menu card element */
-  function createCard(item, index) {
+  function createCard(item, index, category) {
     var article = document.createElement("article");
     article.className = "menu-card";
     article.style.animationDelay = Math.min(index * 0.04, 0.4) + "s";
 
-    var displayName = item.name;
+    var displayName = getItemDisplayName(item, category);
     var descHtml = item.description
       ? '<p class="card-desc">' + item.description + "</p>"
       : "";
+    var availableSizes = getAvailableSizes(item);
+    var defaultSize = getDefaultSize(item);
     var itemPrice = getPriceValue(item);
-    var safeName = (item.name || "").replace(/'/g, "\\'").replace(/\"/g, '\\"').replace(/\r?\n/g, " ");
+    var sizePickerHtml = availableSizes.length
+      ? '<div class="size-picker" role="group" aria-label="اختيار الحجم">' +
+        availableSizes.map(function (size) {
+          var isActive = size === defaultSize;
+          return '<button type="button" class="size-btn' + (isActive ? " active" : "") + '" data-size="' + size + '" aria-pressed="' + (isActive ? "true" : "false") + '">' + getSizeLabel(size) + "</button>";
+        }).join("") +
+        "</div>"
+      : "";
 
     article.innerHTML =
       '<div class="card-image-wrap">' +
@@ -176,6 +231,7 @@
       "<h3 class=\"card-title\">" + displayName + "</h3>" +
       descHtml +
       '<p class="card-price">' + formatPrice(item) + "</p>" +
+      sizePickerHtml +
       '<div class="card-actions">' +
       '<button type="button" class="btn-add-cart ripple-btn">أضف للسلة</button>' +
       "</div>" +
@@ -190,9 +246,31 @@
     var addButton = article.querySelector(".btn-add-cart");
     if (addButton) {
       addButton.addEventListener("click", function () {
-        addToCart(item.id, item.name, itemPrice);
+        var selectedSize = defaultSize;
+        var selectedSizeBtn = article.querySelector(".size-btn.active");
+        if (selectedSizeBtn) {
+          selectedSize = selectedSizeBtn.dataset.size;
+        }
+
+        var cartName = getCartItemName(item, category, selectedSize);
+        var cartPrice = getPriceForSize(item, selectedSize);
+        var cartKey = item.id + (selectedSize ? "-" + selectedSize : "");
+
+        addToCart(item.id, cartName, cartPrice, { key: cartKey });
       });
     }
+
+    var sizeButtons = article.querySelectorAll(".size-btn");
+    sizeButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        sizeButtons.forEach(function (btn) {
+          btn.classList.remove("active");
+          btn.setAttribute("aria-pressed", "false");
+        });
+        button.classList.add("active");
+        button.setAttribute("aria-pressed", "true");
+      });
+    });
 
     return article;
   }
@@ -228,7 +306,7 @@
 
     var fragment = document.createDocumentFragment();
     items.forEach(function (item, i) {
-      fragment.appendChild(createCard(item, i));
+      fragment.appendChild(createCard(item, i, category));
     });
     els.menuGrid.appendChild(fragment);
   }

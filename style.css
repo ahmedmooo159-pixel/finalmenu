@@ -425,6 +425,37 @@ button {
   display: inline-block;
 }
 
+.size-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.size-btn {
+  min-width: 64px;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.size-btn:hover,
+.size-btn:focus-visible {
+  border-color: var(--maroon-light);
+  box-shadow: 0 6px 16px rgba(128, 0, 0, 0.1);
+}
+
+.size-btn.active {
+  background: var(--maroon);
+  color: #fff;
+  border-color: var(--maroon);
+}
+
 .card-actions {
   margin-top: 1rem;
 }
