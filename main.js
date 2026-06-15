@@ -8,6 +8,7 @@
   const PLACEHOLDER_IMG = "assets/images/placeholder.svg";
   let activeCategoryId = null;
   let searchTimeout = null;
+  let cart = [];
 
   const els = {
     restaurantName: document.getElementById("restaurant-name"),
@@ -28,6 +29,9 @@
     footerWhatsappLink: document.getElementById("footer-whatsapp-link"),
     footerFacebookLink: document.getElementById("footer-facebook-link"),
     backToTop: document.getElementById("back-to-top"),
+    cartBar: document.getElementById("cart-bar"),
+    cartCount: document.getElementById("cart-count"),
+    cartTotal: document.getElementById("cart-total"),
   };
 
   /** Format single or multi-size prices */
@@ -61,6 +65,74 @@
     return image;
   }
 
+  function getPriceValue(item) {
+    if (item.price != null) return item.price;
+    if (item.prices) return item.prices.M ?? item.prices.L ?? item.prices.S ?? 0;
+    return 0;
+  }
+
+  function addToCart(id, name, price) {
+    var existing = cart.find(function (entry) {
+      return entry.id === id;
+    });
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ id: id, name: name, price: price || 0, quantity: 1 });
+    }
+
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    var count = cart.reduce(function (sum, item) {
+      return sum + item.quantity;
+    }, 0);
+    var total = cart.reduce(function (sum, item) {
+      return sum + (item.price || 0) * item.quantity;
+    }, 0);
+
+    if (els.cartCount) {
+      els.cartCount.textContent = count;
+    }
+    if (els.cartTotal) {
+      els.cartTotal.textContent = total;
+    }
+    if (els.cartBar) {
+      els.cartBar.classList.toggle("active", count > 0);
+    }
+  }
+
+  function sendOrderToWhatsApp() {
+    if (!cart.length) {
+      return;
+    }
+
+    var total = cart.reduce(function (sum, item) {
+      return sum + (item.price || 0) * item.quantity;
+    }, 0);
+
+    var messageLines = [
+      "🛒 طلب جديد من قائمة لذة الملوك:",
+      "",
+    ];
+
+    cart.forEach(function (entry) {
+      var line = "• " + entry.name + " × " + entry.quantity + " = " + ((entry.price || 0) * entry.quantity) + " ج.م";
+      messageLines.push(line);
+    });
+
+    messageLines.push("");
+    messageLines.push("المجموع الكلي: " + total + " ج.م");
+    messageLines.push("رقم الطلب: 01091728680");
+
+    var encodedMessage = encodeURIComponent(messageLines.join("\n"));
+    var whatsappUrl = "https://wa.me/201091728680?text=" + encodedMessage;
+
+    window.open(whatsappUrl, "_blank");
+  }
+
   /** Build a menu card element */
   function createCard(item, index) {
     var article = document.createElement("article");
@@ -71,6 +143,8 @@
     var descHtml = item.description
       ? '<p class="card-desc">' + item.description + "</p>"
       : "";
+    var itemPrice = getPriceValue(item);
+    var safeName = (item.name || "").replace(/'/g, "\\'").replace(/\"/g, '\\"').replace(/\r?\n/g, " ");
 
     article.innerHTML =
       '<div class="card-image-wrap">' +
@@ -81,6 +155,9 @@
       "<h3 class=\"card-title\">" + displayName + "</h3>" +
       descHtml +
       '<p class="card-price">' + formatPrice(item) + "</p>" +
+      '<div class="card-actions">' +
+      '<button type="button" class="btn-add-cart ripple-btn" onclick="addToCart(\'' + item.id + '\', \'" + safeName + "\', ' + itemPrice + ')">أضف للسلة</button>' +
+      "</div>" +
       "</div>";
 
     var img = article.querySelector(".card-image");
@@ -296,6 +373,9 @@
       setTimeout(scrollActiveCategoryIntoView, 200);
     });
   }
+
+  window.addToCart = addToCart;
+  window.sendOrderToWhatsApp = sendOrderToWhatsApp;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

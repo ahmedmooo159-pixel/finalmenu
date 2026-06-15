@@ -103,6 +103,17 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
   </button>
 
+  <div id="cart-bar" class="cart-bar" aria-live="polite">
+    <div class="cart-details">
+      <span>سلة الطلبات:</span>
+      <strong id="cart-count">0</strong>
+      <span>عنصر ·</span>
+      <strong id="cart-total">0</strong>
+      <span>ج.م</span>
+    </div>
+    <button type="button" class="btn-whatsapp ripple-btn" onclick="sendOrderToWhatsApp()">تأكيد الطلب عبر واتساب</button>
+  </div>
+
   <script src="data.js"></script>
   <script src="animations.js"></script>
   <script src="main.js"></script>
