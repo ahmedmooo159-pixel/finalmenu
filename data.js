@@ -11,7 +11,7 @@ const MENU_DATA = {
     nameEn: " Lazat Al-Molouk",
     welcome: "فطائر - بيتزا - باستا",
     tagline: "لما البيتزا تبقى تحفة فنية مش مجرد أكلة",
-    logo: "assets/logo/logo.jpeg",
+    logo: "/workspaces/finalmenu/assets/logo/logo.jpeg",
     phones: ["01034356136", "01123889069", "01034352138"],
     address: "سوق المنطقة السابعة بجوار ماركت أبو غزالة",
     deliveryNote: "أسرع دليفرى في مصر",
