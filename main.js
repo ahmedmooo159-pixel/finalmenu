@@ -167,10 +167,25 @@
     if (!cart.length) {
       return;
     }
+    
+    // فتح مربع الحوار بدل التحويل المباشر للواتس
+    window.openDeliveryModal();
+  }
+
+  // دالة تأكيد الطلب من مربع الحوار
+  window.confirmOrderToWhatsApp = function() {
+    if (!cart.length) {
+      return;
+    }
 
     var total = cart.reduce(function (sum, item) {
       return sum + (item.price || 0) * item.quantity;
     }, 0);
+
+    // الحصول على نوع التوصيل والملاحظات من المربع
+    var deliveryType = document.querySelector('input[name="delivery-type"]:checked').value;
+    var deliveryLabel = deliveryType === 'delivery' ? '🚗 توصيل للمنزل' : '🏪 استلام من المحل';
+    var notes = document.getElementById('order-notes').value.trim();
 
     var messageLines = [
       "🛒 طلب جديد من قائمة لذة الملوك:",
@@ -186,19 +201,30 @@
     messageLines.push("");
     messageLines.push("المجموع الكلي: " + total + " ج.م");
     messageLines.push("رقم الطلب: " + orderNumber);
+    messageLines.push("");
+    messageLines.push("طريقة التوصيل: " + deliveryLabel);
 
     if (els.userContact) {
       var contactValue = els.userContact.value.trim();
       if (contactValue) {
-        messageLines.push("رقم التواصل للعميل: " + contactValue);
+        messageLines.push("رقم التواصل: " + contactValue);
       }
     }
 
-    var encodedMessage = encodeURIComponent(messageLines.join("\n"));
-    var whatsappUrl = "https://wa.me/201008674032?text=" + encodedMessage;
+    if (notes) {
+      messageLines.push("");
+      messageLines.push("ملاحظات: " + notes);
+    }
 
+    var encodedMessage = encodeURIComponent(messageLines.join("\n"));
+    var whatsappUrl = "https://wa.me/201034352138?text=" + encodedMessage;
+
+    // إغلاق المربع
+    window.closeDeliveryModal();
+    
+    // فتح الواتس
     window.open(whatsappUrl, "_blank");
-  }
+  };
 
   /** Build a menu card element */
   function createCard(item, index, category) {
