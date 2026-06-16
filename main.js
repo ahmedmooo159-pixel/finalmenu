@@ -118,6 +118,7 @@
     return 0;
   }
 
+
   function addToCart(id, name, price, options) {
     var itemKey = options && options.key ? options.key : id;
     var existing = cart.find(function (entry) {
