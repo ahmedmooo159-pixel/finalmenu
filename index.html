@@ -24,7 +24,7 @@
   <div id="loader" class="loader" aria-hidden="true" role="status">
     <div class="loader-inner">
       <div class="loader-spinner"></div>
-      <p class="loader-text">جاري تحميل المنيو...</p>
+      <p class="loader-text">جاري تحميل المنيو(استنى متستعجلش)...</p>
     </div>
   </div>
 
@@ -101,20 +101,50 @@
   </button>
 
   <div id="cart-bar" class="cart-bar" aria-live="polite">
-    <div class="cart-details">
+    <div class="cart-details" id="cart-bar-summary" style="cursor:pointer;" onclick="openCartDrawer()" title="عرض السلة">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span>سلة الطلبات:</span>
       <strong id="cart-count">0</strong>
       <span>عنصر ·</span>
       <strong id="cart-total">0</strong>
       <span>ج.م</span>
+      <span style="font-size:0.8rem;opacity:0.8;margin-right:4px;">← اضغط للعرض</span>
     </div>
     <div class="cart-contact">
-      <label for="user-contact">رقم التواصل</label>
+      <label for="user-contact">رقم التواصل (عادي براحتك كده كده هتتحول على الواتس )</label>
       <input id="user-contact" type="tel" placeholder="ادخل رقم العميل" inputmode="tel" />
     </div>
     <div class="cart-actions-footer">
       <button type="button" class="btn-clear-cart ripple-btn" onclick="clearCart()">حذف السلة</button>
-      <button type="button" class="btn-whatsapp ripple-btn" onclick="sendOrderToWhatsApp()">تأكيد الطلب عبر واتساب</button>
+      <button type="button" class="btn-whatsapp ripple-btn" onclick="sendOrderToWhatsApp()">تأكيد الطلب</button>
+    </div>
+  </div>
+
+  <!-- Drawer السلة -->
+  <div id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="سلة الطلبات" style="display:none;">
+    <div class="cart-drawer-overlay" onclick="closeCartDrawer()"></div>
+    <div class="cart-drawer-panel">
+      <div class="cart-drawer-header">
+        <h2>🛒 سلة الطلبات</h2>
+        <button type="button" class="cart-drawer-close" onclick="closeCartDrawer()" aria-label="إغلاق">×</button>
+      </div>
+      <div class="cart-drawer-body" id="cart-drawer-body">
+        <!-- يتم ملؤها ديناميكياً -->
+      </div>
+      <div class="cart-drawer-footer" id="cart-drawer-footer" style="display:none;">
+        <div class="cart-drawer-total">
+          <span>الإجمالي:</span>
+          <strong id="cart-drawer-total-value">0 ج.م</strong>
+        </div>
+        <div class="cart-contact">
+          <label for="user-contact-drawer">رقم التواصل</label>
+          <input id="user-contact-drawer" type="tel" placeholder="ادخل رقم العميل" inputmode="tel" />
+        </div>
+        <div class="cart-drawer-actions">
+          <button type="button" class="btn-clear-cart ripple-btn" onclick="clearCart();closeCartDrawer();">حذف السلة</button>
+          <button type="button" class="btn-whatsapp ripple-btn" onclick="syncDrawerContact();sendOrderToWhatsApp();">تأكيد الطلب عبر واتساب</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -131,12 +161,12 @@
           <label class="option-label">
             <input type="radio" name="delivery-type" value="delivery" checked>
             <span class="option-radio"></span>
-            <span class="option-text">🚗 توصيل للمنزل</span>
+            <span class="option-text"> توصيل للمنزل</span>
           </label>
           <label class="option-label">
             <input type="radio" name="delivery-type" value="pickup">
             <span class="option-radio"></span>
-            <span class="option-text">🏪 استلام من المحل</span>
+            <span class="option-text"> استلام من المطعم</span>
           </label>
         </div>
 
@@ -145,7 +175,7 @@
           <textarea 
             id="order-notes" 
             class="notes-textarea" 
-            placeholder="أضف أي ملاحظات خاصة بطلبك (مثل: بدون بصل، شطة إضافية، إلخ)" 
+            placeholder="أضف أي ملاحظات خاصة بطلبك (شوف نفسك في ايه وهنعملهولك)" 
             rows="4"
           ></textarea>
         </div>
@@ -175,6 +205,7 @@
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         closeDeliveryModal();
+        if (window.closeCartDrawer) window.closeCartDrawer();
       }
     });
   </script>

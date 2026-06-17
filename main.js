@@ -151,6 +151,132 @@
     if (els.cartBar) {
       els.cartBar.classList.toggle("active", count > 0);
     }
+
+    // تحديث محتوى الـ Drawer إن كان مفتوحاً
+    var drawer = document.getElementById("cart-drawer");
+    if (drawer && drawer.style.display !== "none") {
+      renderCartDrawerBody();
+    }
+  }
+
+  /** ابحث عن صورة العنصر من بيانات المنيو باستخدام item.id */
+  function findItemImage(cartEntry) {
+    var baseId = cartEntry.id;
+    for (var ci = 0; ci < MENU_DATA.categories.length; ci++) {
+      var items = MENU_DATA.categories[ci].items;
+      for (var ii = 0; ii < items.length; ii++) {
+        if (items[ii].id === baseId) {
+          return resolveImageSrc(items[ii].image);
+        }
+      }
+    }
+    return PLACEHOLDER_IMG;
+  }
+
+  /** ارسم محتوى Drawer السلة */
+  function renderCartDrawerBody() {
+    var body = document.getElementById("cart-drawer-body");
+    var footer = document.getElementById("cart-drawer-footer");
+    var totalEl = document.getElementById("cart-drawer-total-value");
+    if (!body) return;
+
+    body.innerHTML = "";
+
+    if (!cart.length) {
+      body.innerHTML =
+        '<div class="cart-drawer-empty">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
+        "<p>السلة فارغة حالياً</p>" +
+        "</div>";
+      if (footer) footer.style.display = "none";
+      return;
+    }
+
+    if (footer) footer.style.display = "flex";
+
+    var total = 0;
+    cart.forEach(function (entry, index) {
+      var imgSrc = findItemImage(entry);
+      var subtotal = (entry.price || 0) * entry.quantity;
+      total += subtotal;
+
+      var card = document.createElement("div");
+      card.className = "cart-item-card";
+      card.dataset.index = index;
+
+      card.innerHTML =
+        '<img class="cart-item-img" src="' + imgSrc + '" alt="' + entry.name + '" loading="lazy" onerror="this.src=\'' + PLACEHOLDER_IMG + '\'">' +
+        '<div class="cart-item-info">' +
+          '<div class="cart-item-name" title="' + entry.name + '">' + entry.name + "</div>" +
+          '<div class="cart-item-unit-price">سعر الوحدة: ' + (entry.price || 0) + " ج.م</div>" +
+          '<div class="cart-item-subtotal" id="subtotal-' + index + '">' + subtotal + " ج.م</div>" +
+        "</div>" +
+        '<div class="cart-item-controls">' +
+          '<div class="cart-qty-controls">' +
+            '<button type="button" class="cart-qty-btn" data-action="dec" data-index="' + index + '" aria-label="تقليل الكمية">−</button>' +
+            '<span class="cart-qty-value" id="qty-' + index + '">' + entry.quantity + "</span>" +
+            '<button type="button" class="cart-qty-btn" data-action="inc" data-index="' + index + '" aria-label="زيادة الكمية">+</button>' +
+          "</div>" +
+          '<button type="button" class="cart-item-delete" data-index="' + index + '" aria-label="حذف العنصر" title="حذف">🗑</button>' +
+        "</div>";
+
+      body.appendChild(card);
+    });
+
+    if (totalEl) totalEl.textContent = total + " ج.م";
+
+    // ربط أحداث الأزرار
+    body.querySelectorAll(".cart-qty-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var idx = parseInt(this.dataset.index, 10);
+        var action = this.dataset.action;
+        if (action === "inc") {
+          cart[idx].quantity += 1;
+        } else {
+          cart[idx].quantity -= 1;
+          if (cart[idx].quantity <= 0) {
+            cart.splice(idx, 1);
+            updateCartUI();
+            return;
+          }
+        }
+        updateCartUI();
+      });
+    });
+
+    body.querySelectorAll(".cart-item-delete").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var idx = parseInt(this.dataset.index, 10);
+        cart.splice(idx, 1);
+        updateCartUI();
+      });
+    });
+  }
+
+  /** مزامنة رقم التواصل من Drawer إلى حقل الـ cart-bar */
+  function syncDrawerContact() {
+    var drawerInput = document.getElementById("user-contact-drawer");
+    var mainInput = document.getElementById("user-contact");
+    if (drawerInput && mainInput && drawerInput.value.trim()) {
+      mainInput.value = drawerInput.value.trim();
+    }
+  }
+
+  /** فتح Drawer السلة */
+  function openCartDrawer() {
+    var drawer = document.getElementById("cart-drawer");
+    if (!drawer) return;
+    renderCartDrawerBody();
+    drawer.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+
+  /** إغلاق Drawer السلة */
+  function closeCartDrawer() {
+    var drawer = document.getElementById("cart-drawer");
+    if (!drawer) return;
+    drawer.style.display = "none";
+    document.body.style.overflow = "";
   }
 
   function clearCart() {
@@ -510,6 +636,9 @@
   window.addToCart = addToCart;
   window.sendOrderToWhatsApp = sendOrderToWhatsApp;
   window.clearCart = clearCart;
+  window.openCartDrawer = openCartDrawer;
+  window.closeCartDrawer = closeCartDrawer;
+  window.syncDrawerContact = syncDrawerContact;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
