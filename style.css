@@ -1487,3 +1487,88 @@ button {
     padding: 1rem;
   }
 }
+
+/* ─── Daily Offer Banner ─── */
+.daily-offer-banner {
+  background: linear-gradient(135deg, var(--gold) 0%, #b8901f 100%);
+  color: var(--maroon-dark);
+  box-shadow: 0 4px 16px rgba(201, 162, 39, 0.35);
+  position: relative;
+  z-index: 190;
+}
+
+.daily-offer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.daily-offer-badge {
+  font-weight: 800;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.35);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.daily-offer-item {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.daily-offer-prices {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.daily-offer-old-price {
+  text-decoration: line-through;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.daily-offer-new-price {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--maroon-dark);
+  background: rgba(255, 255, 255, 0.45);
+  padding: 0.15rem 0.6rem;
+  border-radius: 8px;
+}
+
+.daily-offer-note {
+  font-size: 0.82rem;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .daily-offer-inner {
+    padding: 0.65rem 0.85rem;
+    gap: 0.4rem 0.6rem;
+  }
+
+  .daily-offer-badge {
+    font-size: 0.85rem;
+  }
+
+  .daily-offer-item {
+    font-size: 0.9rem;
+  }
+}
+
+/* ─── Ensure WhatsApp / Facebook FABs are always visible (fixed, no scroll-trigger) ─── */
+.fab-whatsapp,
+.fab-facebook {
+  position: fixed;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+}

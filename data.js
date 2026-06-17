@@ -263,3 +263,16 @@ const SOCIAL_LINKS = {
   whatsapp: "",
   facebook: "",
 };
+
+/**
+ * عرض اليوم — يظهر كبانر أسفل الهيدر مباشرة في الصفحة الرئيسية.
+ * عدّل active إلى false لإخفاء البانر تلقائياً.
+ */
+const DAILY_OFFER = {
+  active: false,
+  title: "عرض اليوم",
+  item: "",
+  oldPrice: 0,
+  newPrice: 0,
+  note: "",
+};

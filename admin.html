@@ -333,6 +333,10 @@ a{text-decoration:none;color:inherit;}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       الأقسام
     </div>
+    <div class="nav-item" onclick="switchPage('offer',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41 11 4H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      عرض اليوم
+    </div>
     <div class="nav-divider"></div>
     <div class="nav-section-title">الإعدادات</div>
     <div class="nav-item" onclick="switchPage('restaurant',this)">
@@ -439,8 +443,8 @@ function doLogout() {
 /* ═══════════════════════════════════════
    NAVIGATION
 ═══════════════════════════════════════ */
-const pages = { dashboard:pageDashboard, menu:pageMenu, categories:pageCategories, restaurant:pageRestaurant, export:pageExport };
-const pageTitles = { dashboard:'الرئيسية', menu:'إدارة المنيو', categories:'إدارة الأقسام', restaurant:'بيانات المطعم', export:'تصدير data.js' };
+const pages = { dashboard:pageDashboard, menu:pageMenu, categories:pageCategories, offer:pageOffer, restaurant:pageRestaurant, export:pageExport };
+const pageTitles = { dashboard:'الرئيسية', menu:'إدارة المنيو', categories:'إدارة الأقسام', offer:'عرض اليوم', restaurant:'بيانات المطعم', export:'تصدير data.js' };
 
 function switchPage(name, navEl) {
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -1007,6 +1011,91 @@ function deleteCat(catId) {
 }
 
 /* ═══════════════════════════════════════
+   PAGE: DAILY OFFER (عرض اليوم)
+═══════════════════════════════════════ */
+function loadDailyOffer() {
+  const fallback = { active:false, title:'عرض اليوم', item:'', oldPrice:'', newPrice:'', note:'' };
+  try {
+    const raw = localStorage.getItem('admin_daily_offer');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') return Object.assign(fallback, parsed);
+    }
+  } catch(e) {}
+  if (typeof DAILY_OFFER !== 'undefined') return Object.assign(fallback, DAILY_OFFER);
+  return fallback;
+}
+
+function saveDailyOffer(offer) {
+  localStorage.setItem('admin_daily_offer', JSON.stringify(offer));
+}
+
+function pageOffer() {
+  const offer = loadDailyOffer();
+  document.getElementById('page-content').innerHTML=`
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">عرض اليوم</div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="of-active" ${offer.active?'checked':''}>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="card-body">
+        <p style="color:var(--text-muted);font-size:.85rem;margin-bottom:1.1rem;line-height:1.7">
+          فعّل المفتاح فوق عشان يظهر بانر العرض فوق المنيو مباشرة. أي تعديل هنا بيظهر فوراً في الصفحة الرئيسية.
+        </p>
+        <div class="form-group">
+          <label class="form-label">عنوان البانر</label>
+          <input class="form-input" id="of-title" type="text" value="${offer.title||''}" placeholder="عرض اليوم">
+        </div>
+        <div class="form-group">
+          <label class="form-label">اسم الصنف *</label>
+          <input class="form-input" id="of-item" type="text" value="${offer.item||''}" placeholder="بيتزا مارجريتا لارج">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">السعر القديم</label>
+            <input class="form-input" id="of-oldprice" type="number" min="0" value="${offer.oldPrice!=null?offer.oldPrice:''}" placeholder="200">
+          </div>
+          <div class="form-group">
+            <label class="form-label">السعر الجديد *</label>
+            <input class="form-input" id="of-newprice" type="number" min="0" value="${offer.newPrice!=null?offer.newPrice:''}" placeholder="150">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ملاحظة (اختياري)</label>
+          <input class="form-input" id="of-note" type="text" value="${offer.note||''}" placeholder="العرض لحد منتصف الليل">
+        </div>
+        <div style="margin-top:1.1rem;display:flex;justify-content:flex-end">
+          <button class="btn btn-primary" onclick="saveOfferForm()">حفظ العرض</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function saveOfferForm() {
+  const item=(document.getElementById('of-item').value||'').trim();
+  const newPriceRaw=document.getElementById('of-newprice').value;
+  const active=document.getElementById('of-active').checked;
+
+  if (active && !item) { toast('اسم الصنف مطلوب لتفعيل العرض','error'); return; }
+  if (active && newPriceRaw==='') { toast('السعر الجديد مطلوب لتفعيل العرض','error'); return; }
+
+  const oldPriceRaw=document.getElementById('of-oldprice').value;
+  const offer={
+    active,
+    title:(document.getElementById('of-title').value||'').trim()||'عرض اليوم',
+    item,
+    oldPrice: oldPriceRaw==='' ? '' : parseFloat(oldPriceRaw),
+    newPrice: newPriceRaw==='' ? '' : parseFloat(newPriceRaw),
+    note:(document.getElementById('of-note').value||'').trim(),
+  };
+  saveDailyOffer(offer);
+  toast(active?'تم تفعيل العرض ✓':'تم حفظ التعديلات (العرض متوقف)','success');
+}
+
+/* ═══════════════════════════════════════
    PAGE: RESTAURANT INFO
 ═══════════════════════════════════════ */
 function pageRestaurant() {
@@ -1171,7 +1260,17 @@ function generateDataJs() {
   out+='  ],\n};\n\n';
   const wa=localStorage.getItem('admin_wa')||'';
   const fb=localStorage.getItem('admin_fb')||'';
-  out+=`const SOCIAL_LINKS = {\n  whatsapp: "${escapeJs(wa)}",\n  facebook: "${escapeJs(fb)}",\n};\n`;
+  out+=`const SOCIAL_LINKS = {\n  whatsapp: "${escapeJs(wa)}",\n  facebook: "${escapeJs(fb)}",\n};\n\n`;
+  const offer=loadDailyOffer();
+  out+='/**\n * عرض اليوم — يظهر كبانر أسفل الهيدر مباشرة في الصفحة الرئيسية.\n * عدّل active إلى false لإخفاء البانر تلقائياً.\n */\n';
+  out+='const DAILY_OFFER = {\n';
+  out+=`  active: ${offer.active?'true':'false'},\n`;
+  out+=`  title: "${escapeJs(offer.title||'عرض اليوم')}",\n`;
+  out+=`  item: "${escapeJs(offer.item||'')}",\n`;
+  out+=`  oldPrice: ${offer.oldPrice===''||offer.oldPrice==null?0:offer.oldPrice},\n`;
+  out+=`  newPrice: ${offer.newPrice===''||offer.newPrice==null?0:offer.newPrice},\n`;
+  out+=`  note: "${escapeJs(offer.note||'')}",\n`;
+  out+='};\n';
   return out;
 }
 

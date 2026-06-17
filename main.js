@@ -34,6 +34,12 @@
     cartCount: document.getElementById("cart-count"),
     cartTotal: document.getElementById("cart-total"),
     userContact: document.getElementById("user-contact"),
+    dailyOfferBanner: document.getElementById("daily-offer-banner"),
+    dailyOfferTitle: document.getElementById("daily-offer-title"),
+    dailyOfferItem: document.getElementById("daily-offer-item"),
+    dailyOfferOldPrice: document.getElementById("daily-offer-old-price"),
+    dailyOfferNewPrice: document.getElementById("daily-offer-new-price"),
+    dailyOfferNote: document.getElementById("daily-offer-note"),
   };
 
   /** Format single or multi-size prices */
@@ -603,6 +609,62 @@
     }
   }
 
+  /** Get active daily offer, preferring admin localStorage override over data.js */
+  function getDailyOffer() {
+    try {
+      var raw = localStorage.getItem("admin_daily_offer");
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") return parsed;
+      }
+    } catch (e) {
+      /* ignore malformed localStorage value, fall back to data.js */
+    }
+
+    if (typeof DAILY_OFFER !== "undefined") return DAILY_OFFER;
+    return null;
+  }
+
+  /** Render the daily offer banner, or hide it if no active offer */
+  function initDailyOffer() {
+    if (!els.dailyOfferBanner) return;
+
+    var offer = getDailyOffer();
+
+    if (!offer || !offer.active || !offer.item) {
+      els.dailyOfferBanner.classList.add("hidden");
+      return;
+    }
+
+    if (els.dailyOfferTitle) els.dailyOfferTitle.textContent = offer.title || "عرض اليوم";
+    if (els.dailyOfferItem) els.dailyOfferItem.textContent = offer.item;
+
+    if (els.dailyOfferOldPrice) {
+      if (offer.oldPrice != null && offer.oldPrice !== "") {
+        els.dailyOfferOldPrice.textContent = offer.oldPrice + " ج.م";
+        els.dailyOfferOldPrice.classList.remove("hidden");
+      } else {
+        els.dailyOfferOldPrice.textContent = "";
+        els.dailyOfferOldPrice.classList.add("hidden");
+      }
+    }
+
+    if (els.dailyOfferNewPrice) {
+      if (offer.newPrice != null && offer.newPrice !== "") {
+        els.dailyOfferNewPrice.textContent = offer.newPrice + " ج.م";
+      } else {
+        els.dailyOfferNewPrice.textContent = "";
+      }
+    }
+
+    if (els.dailyOfferNote) {
+      els.dailyOfferNote.textContent = offer.note || "";
+      els.dailyOfferNote.classList.toggle("hidden", !offer.note);
+    }
+
+    els.dailyOfferBanner.classList.remove("hidden");
+  }
+
   /** Search input handler with debounce */
   function initSearch() {
     els.searchInput.addEventListener("input", function (e) {
@@ -645,6 +707,7 @@
   function init() {
     initHeader();
     initSocialLinks();
+    initDailyOffer();
     renderCategories();
     initSearch();
     initBackToTop();
