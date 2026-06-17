@@ -1,14 +1,14 @@
 /**
  * ═══════════════════════════════════════════════════════════
  *  ملف البيانات — تم إنشاؤه من لوحة التحكم Admin Panel
- *  Restaurant:  لذة الملوك
+ *  Restaurant: لذة الملوك
  * ═══════════════════════════════════════════════════════════
  */
 
 const MENU_DATA = {
   restaurant: {
-    name: " لذة الملوك",
-    nameEn: " Lazat Al-Molouk",
+    name: "لذة الملوك",
+    nameEn: "Lazat Al-Molouk",
     welcome: "فطائر - بيتزا - باستا",
     tagline: "لما البيتزا تبقى تحفة فنية مش مجرد أكلة",
     logo: "assets/logo/logo.jpeg",
@@ -260,8 +260,8 @@ const MENU_DATA = {
 };
 
 const SOCIAL_LINKS = {
-  whatsapp: "",
-  facebook: "",
+  whatsapp: "https://wa.me/201034352138",
+  facebook: "https://www.facebook.com/share/1C3DDVYQsx/?mibextid=wwXIfr",
 };
 
 /**
