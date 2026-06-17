@@ -269,10 +269,10 @@ const SOCIAL_LINKS = {
  * عدّل active إلى false لإخفاء البانر تلقائياً.
  */
 const DAILY_OFFER = {
-  active: false,
-  title: "عرض اليوم",
-  item: "كريب سجق",
+  active: true,
+  title: "يلا مستني ايه خخش توقع نتيجة مباراة منتخبنا ومنتخب نيوزلاندا",
+  item: "كريب على مزاجك",
   oldPrice: 0,
-  newPrice: 121,
-  note: "",
+  newPrice: 0,
+  note: "العرض هيتقفل قبل الماتش بنص ساعه",
 };
