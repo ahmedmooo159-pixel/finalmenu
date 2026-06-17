@@ -269,7 +269,7 @@ const SOCIAL_LINKS = {
  * عدّل active إلى false لإخفاء البانر تلقائياً.
  */
 const DAILY_OFFER = {
-  active: true,
+  active: false,
   title: "عرض اليوم",
   item: "كريب سجق",
   oldPrice: 0,
