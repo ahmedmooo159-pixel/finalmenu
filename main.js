@@ -299,20 +299,37 @@
     window.openDeliveryModal();
   }
 
+  // متغير مؤقت لحفظ بيانات الطلب ريثما يختار المنطقة
+  var _pendingOrderNotes = '';
+
   // دالة تأكيد الطلب من مربع الحوار
   window.confirmOrderToWhatsApp = function() {
-    if (!cart.length) {
-      return;
-    }
+    if (!cart.length) return;
 
-    var total = cart.reduce(function (sum, item) {
+    var deliveryType = document.querySelector('input[name="delivery-type"]:checked').value;
+    _pendingOrderNotes = document.getElementById('order-notes').value.trim();
+
+    // إغلاق مربع التوصيل
+    window.closeDeliveryModal();
+
+    if (deliveryType === 'delivery') {
+      // افتح نافذة اختيار المنطقة
+      window.openAreaModal();
+    } else {
+      // استلام من المحل — أرسل مباشرةً بدون ديليفري
+      window.finalizeOrderWithArea(null, 0);
+    }
+  };
+
+  // دالة إرسال الطلب النهائي بعد اختيار المنطقة
+  window.finalizeOrderWithArea = function(area, deliveryFee) {
+    if (!cart.length) return;
+
+    var itemsTotal = cart.reduce(function (sum, item) {
       return sum + (item.price || 0) * item.quantity;
     }, 0);
 
-    // الحصول على نوع التوصيل والملاحظات من المربع
-    var deliveryType = document.querySelector('input[name="delivery-type"]:checked').value;
-    var deliveryLabel = deliveryType === 'delivery' ? '🚗 توصيل للمنزل' : '🏪 استلام من المحل';
-    var notes = document.getElementById('order-notes').value.trim();
+    var grandTotal = itemsTotal + (deliveryFee || 0);
 
     var messageLines = [
       "🛒 طلب جديد من قائمة لذة الملوك:",
@@ -324,32 +341,36 @@
       messageLines.push(line);
     });
 
+    messageLines.push("");
+    messageLines.push("💰 إجمالي الأصناف: " + itemsTotal + " ج.م");
+
+    if (area) {
+      messageLines.push("📍 منطقة التوصيل: " + area);
+      messageLines.push("🚗 رسوم التوصيل: " + deliveryFee + " ج.م");
+      messageLines.push("🧾 الإجمالي الكلي (شامل الديليفري): " + grandTotal + " ج.م");
+    } else {
+      messageLines.push("🏪 طريقة الاستلام: استلام من المطعم");
+      messageLines.push("🧾 الإجمالي الكلي: " + grandTotal + " ج.م");
+    }
+
     var orderNumber = getNextOrderNumber();
-    messageLines.push("");
-    messageLines.push("المجموع الكلي: " + total + " ج.م");
-    messageLines.push("رقم الطلب: " + orderNumber);
-    messageLines.push("");
-    messageLines.push("طريقة التوصيل: " + deliveryLabel);
+    messageLines.push("🔢 رقم الطلب: " + orderNumber);
 
     if (els.userContact) {
       var contactValue = els.userContact.value.trim();
       if (contactValue) {
-        messageLines.push("رقم التواصل: " + contactValue);
+        messageLines.push("📞 رقم التواصل: " + contactValue);
       }
     }
 
-    if (notes) {
+    if (_pendingOrderNotes) {
       messageLines.push("");
-      messageLines.push("ملاحظات: " + notes);
+      messageLines.push("📝 ملاحظات: " + _pendingOrderNotes);
     }
 
     var encodedMessage = encodeURIComponent(messageLines.join("\n"));
     var whatsappUrl = "https://wa.me/201034352138?text=" + encodedMessage;
 
-    // إغلاق المربع
-    window.closeDeliveryModal();
-    
-    // فتح الواتس
     window.open(whatsappUrl, "_blank");
   };
 

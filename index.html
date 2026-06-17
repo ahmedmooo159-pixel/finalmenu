@@ -187,6 +187,52 @@
     </div>
   </div>
 
+  <!-- مربع حوار اختيار المنطقة -->
+  <div id="area-modal" class="modal" style="display: none;">
+    <div class="modal-overlay" onclick="closeAreaModal()"></div>
+    <div class="modal-content area-modal-content">
+      <div class="modal-header">
+        <h2>📍 اختر منطقتك</h2>
+        <button type="button" class="modal-close" onclick="closeAreaModal()">×</button>
+      </div>
+      <div class="modal-body area-modal-body">
+        <p class="area-modal-subtitle">اختر المنطقة عشان نحسبلك رسوم التوصيل</p>
+        <div class="area-grid">
+          <button type="button" class="area-btn" data-area="المنطقة 1" data-fee="30">المنطقة 1</button>
+          <button type="button" class="area-btn" data-area="المنطقة 2" data-fee="30">المنطقة 2</button>
+          <button type="button" class="area-btn" data-area="المنطقة 3" data-fee="30">المنطقة 3</button>
+          <button type="button" class="area-btn" data-area="المنطقة 4" data-fee="30">المنطقة 4</button>
+          <button type="button" class="area-btn" data-area="المنطقة 5" data-fee="30">المنطقة 5</button>
+          <button type="button" class="area-btn" data-area="المنطقة 6" data-fee="30">المنطقة 6</button>
+          <button type="button" class="area-btn" data-area="المنطقة 7" data-fee="30">المنطقة 7</button>
+          <button type="button" class="area-btn" data-area="المنطقة 8" data-fee="30">المنطقة 8</button>
+          <button type="button" class="area-btn" data-area="المنطقة 9" data-fee="30">المنطقة 9</button>
+          <button type="button" class="area-btn" data-area="المنطقة 10" data-fee="30">المنطقة 10</button>
+          <button type="button" class="area-btn" data-area="المنطقة 11" data-fee="30">المنطقة 11</button>
+          <button type="button" class="area-btn" data-area="المنطقة 12" data-fee="30">المنطقة 12</button>
+          <button type="button" class="area-btn" data-area="المنطقة 13" data-fee="30">المنطقة 13</button>
+          <button type="button" class="area-btn" data-area="المنطقة 14" data-fee="30">المنطقة 14</button>
+          <button type="button" class="area-btn" data-area="المنطقة 15" data-fee="30">المنطقة 15</button>
+          <button type="button" class="area-btn" data-area="المنطقة 16" data-fee="30">المنطقة 16</button>
+          <button type="button" class="area-btn" data-area="أبني بيتك الأولى" data-fee="30">أبني بيتك الأولى</button>
+          <button type="button" class="area-btn" data-area="أبني بيتك الثانية" data-fee="30">أبني بيتك الثانية</button>
+          <button type="button" class="area-btn" data-area="أبني بيتك الثالث" data-fee="30">أبني بيتك الثالث</button>
+          <button type="button" class="area-btn" data-area="دار مصر" data-fee="30">دار مصر</button>
+          <button type="button" class="area-btn area-btn--far" data-area="المنطقة 22" data-fee="45">المنطقة 22</button>
+          <button type="button" class="area-btn area-btn--far" data-area="المنطقة 23" data-fee="45">المنطقة 23</button>
+          <button type="button" class="area-btn area-btn--far" data-area="المنطقة 25" data-fee="45">المنطقة 25</button>
+        </div>
+        <div class="area-fee-legend">
+          <span class="fee-badge fee-badge--30">🚗 ديليفري 30 ج.م</span>
+          <span class="fee-badge fee-badge--45">🚗 ديليفري 45 ج.م</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" onclick="closeAreaModal()">رجوع</button>
+      </div>
+    </div>
+  </div>
+
   <script src="data.js"></script>
   <script src="animations.js"></script>
   <script>
@@ -202,9 +248,34 @@
       document.body.style.overflow = '';
     }
 
+    function openAreaModal() {
+      const modal = document.getElementById('area-modal');
+      modal.style.display = 'flex';
+    }
+
+    function closeAreaModal() {
+      const modal = document.getElementById('area-modal');
+      modal.style.display = 'none';
+    }
+
+    // ربط أزرار المناطق
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.area-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var area = this.dataset.area;
+          var fee = parseInt(this.dataset.fee, 10);
+          closeAreaModal();
+          if (window.finalizeOrderWithArea) {
+            window.finalizeOrderWithArea(area, fee);
+          }
+        });
+      });
+    });
+
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         closeDeliveryModal();
+        closeAreaModal();
         if (window.closeCartDrawer) window.closeCartDrawer();
       }
     });
