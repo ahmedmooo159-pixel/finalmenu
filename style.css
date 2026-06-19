@@ -1562,6 +1562,17 @@ button {
     font-size: 0.9rem;
   }
 }
+.input-error {
+  border: 2px solid #e53e3e !important;
+  background-color: #fff5f5 !important;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
 
 /* ─── Ensure WhatsApp / Facebook FABs are always visible (fixed, no scroll-trigger) ─── */
 .fab-whatsapp,
