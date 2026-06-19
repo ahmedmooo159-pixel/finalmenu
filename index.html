@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title>لذة الملوك | بيتزا وفطائر وكريب - سوق المنطقة السابعة</title>
   <meta name="description" content="مطعم لذة الملوك — أفضل بيتزا وفطائر وكريب وباستا وحواوشي إسكندراني. سوق المنطقة السابعة بجوار ماركت أبو غزالة. اتصل: 01034356136. توصيل سريع.">
   <meta name="keywords" content="لذة الملوك, بيتزا, فطائر, كريب, باستا, حواوشي إسكندراني, مطعم, توصيل, منيو">
@@ -15,6 +16,15 @@
   <meta property="og:type" content="restaurant">
   <meta property="og:image" content="https://ahmedmooo159-pixel.github.io/finalmenu/assets/logo/logo.jpeg">
   <meta property="og:url" content="https://ahmedmooo159-pixel.github.io/finalmenu/">
+=======
+  <title>لذة الملوك | قائمة المنيو</title>
+  <meta name="description" content="قائمة بيتزا لذة الملوك — بيتزا، فطائر، باستا، كريب، وحواوشي إسكندراني. اطلب الآن!">
+  <meta name="theme-color" content="#800000">
+  <meta property="og:title" content="لذة الملوك | قائمة المنيو">
+  <meta property="og:description" content="فطائر - بيتزا - باستا — لما البيتزا تبقى تحفة فنية مش مجرد أكلة">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/logo/logo.jpeg">
+>>>>>>> 7485533929ef29dccb711b7546bb5e570fc173e8
   <meta property="og:locale" content="ar_EG">
   <meta property="og:site_name" content="لذة الملوك">
 
@@ -233,7 +243,7 @@
   </button>
 
   <div id="cart-bar" class="cart-bar" aria-live="polite">
-    <div class="cart-details" id="cart-bar-summary" style="cursor:pointer;" onclick="openCartDrawer()" title="عرض السلة">
+    <div class="cart-details" id="cart-bar-summary" style="cursor:pointer;" title="عرض السلة">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span>سلة الطلبات:</span>
       <strong id="cart-count">0</strong>
@@ -367,51 +377,6 @@
 
   <script src="data.js"></script>
   <script src="animations.js"></script>
-  <script>
-    function openDeliveryModal() {
-      const modal = document.getElementById('delivery-modal');
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeDeliveryModal() {
-      const modal = document.getElementById('delivery-modal');
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    function openAreaModal() {
-      const modal = document.getElementById('area-modal');
-      modal.style.display = 'flex';
-    }
-
-    function closeAreaModal() {
-      const modal = document.getElementById('area-modal');
-      modal.style.display = 'none';
-    }
-
-    // ربط أزرار المناطق
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.area-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var area = this.dataset.area;
-          var fee = parseInt(this.dataset.fee, 10);
-          closeAreaModal();
-          if (window.finalizeOrderWithArea) {
-            window.finalizeOrderWithArea(area, fee);
-          }
-        });
-      });
-    });
-
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeDeliveryModal();
-        closeAreaModal();
-        if (window.closeCartDrawer) window.closeCartDrawer();
-      }
-    });
-  </script>
   <script src="main.js"></script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 /**
  * ═══════════════════════════════════════════════════════════
  *  ملف البيانات — تم إنشاؤه من لوحة التحكم Admin Panel
- *  Restaurant: بيتزا لذة الملوك
+ *  Restaurant: لذة الملوك
  * ═══════════════════════════════════════════════════════════
  */
 
 const MENU_DATA = {
   restaurant: {
-    name: " لذة الملوك",
-    nameEn: " Lazat Al-Molouk",
+    name: "لذة الملوك",
+    nameEn: "Lazat Al-Molouk",
     welcome: "فطائر - بيتزا - باستا",
     tagline: "لما البيتزا تبقى تحفة فنية مش مجرد أكلة",
     logo: "assets/logo/logo.jpeg",
@@ -22,7 +22,7 @@ const MENU_DATA = {
       name: "Crepe (Savory)",
       nameAr: "كريب حادق",
       items: [
-        { id: "cs-1", name: "سجق ", nameEn: "Sausage", description: "موتزاريلا وخضار", price: 100, image: "assets/images/migrated-cs-1.jpg" },
+        { id: "cs-1", name: "سجق", nameEn: "Sausage", description: "موتزاريلا وخضار", price: 110, image: "assets/images/migrated-cs-1.jpg" },
         { id: "cs-2", name: "برجر لحمة", nameEn: "Beef Burger", description: "موتزاريلا وخضار", price: 120, image: "assets/images/migrated-cs-2.jpg" },
         { id: "cs-3", name: "سوسيس", nameEn: "Hot Dog", description: "موتزاريلا وخضار", price: 150, image: "assets/images/migrated-cs-3.jpg" },
         { id: "cs-4", name: "فراخ باربيكيو", nameEn: "BBQ Chicken", description: "فراخ، مشروم، صوص باربيكيو", price: 110, image: "assets/images/migrated-cs-4.jpg" },
@@ -39,7 +39,7 @@ const MENU_DATA = {
         { id: "cs-15", name: "استربس", nameEn: "Strips", description: "موتزاريلا وخضار", price: 110, image: "assets/images/migrated-cs-15.jpg" },
         { id: "cs-16", name: "كريب الباتشينو", nameEn: "Al Pacino Crepe", description: "تركي، سلامي، كيري، رانش", price: 130, image: "assets/images/migrated-cs-16.jpg" },
         { id: "cs-17", name: "كريب بسطرمة", nameEn: "Pastrami Crepe", description: "موتزاريلا وخضار", price: 110, image: "assets/images/migrated-cs-17.jpg" },
-        { id: "cs-18", name: "كريب لذة الملوك", nameEn: "Lazat Al-Molouk Crepe", description: "تركي، استربس، كريسبي، كيري، سجق، رومي، بطاطس، موتزاريلا", price: 180, image: "assets/images/migrated-cs-18.jpg" }
+        { id: "cs-18", name: "كريب لذة الملوك", nameEn: "Lazat Al-Molouk Crepe", description: "تركي، استربس، كريسبي، كيري، سجق، رومي، بطاطس، موتزاريلا", price: 180, image: "assets/images/migrated-cs-18.jpg" },
       ],
     },
     {
@@ -49,7 +49,7 @@ const MENU_DATA = {
       items: [
         { id: "cw-1", name: "شيكولاته وموز وبندق", nameEn: "Chocolate Banana Hazelnut", description: "", price: 80, image: "assets/images/migrated-cw-1.webp" },
         { id: "cw-2", name: "بوريو", nameEn: "Oreo", description: "", price: 70, image: "assets/images/migrated-cw-2.webp" },
-        { id: "cw-3", name: "هوهوز", nameEn: "Hohos", description: "", price: 70, image: "assets/images/migrated-cw-3.webp" }
+        { id: "cw-3", name: "هوهوز", nameEn: "Hohos", description: "", price: 70, image: "assets/images/migrated-cw-3.webp" },
       ],
     },
     {
@@ -84,7 +84,7 @@ const MENU_DATA = {
         { id: "pz-24", name: "حلواني", nameEn: "Halawani", description: "تركي، سلامي، موتزاريلا، خضار", prices: { L: 240, M: 180, S: 100 }, image: "assets/images/migrated-pz-24.webp" },
         { id: "pz-25", name: "سموك ترك", nameEn: "Smoked Turkey", description: "تركي مدخن، موتزاريلا، خضار", prices: { L: 230, M: 160, S: 100 }, image: "assets/images/migrated-pz-25.webp" },
         { id: "pz-26", name: "بيتزا فراخ", nameEn: "Chicken Pizza", description: "فراخ، موتزاريلا، خضار", prices: { L: 230, M: 170, S: 100 }, image: "assets/images/migrated-pz-26.webp" },
-        { id: "pz-27", name: "حشو أطراف", nameEn: "Stuffed Crust", description: "سوسيس أو موتزاريلا", prices: { L: 100, M: 80, S: 55 }, image: "assets/images/migrated-pz-27.webp" }
+        { id: "pz-27", name: "حشو أطراف", nameEn: "Stuffed Crust", description: "سوسيس أو موتزاريلا", prices: { L: 100, M: 80, S: 55 }, image: "assets/images/migrated-pz-27.webp" },
       ],
     },
     {
@@ -113,7 +113,7 @@ const MENU_DATA = {
         { id: "sf-19", name: "فواكه البحر", nameEn: "Seafood", description: "جمبري، كالاماري، تونة، خضار، موتزاريلا", prices: { L: 270, M: 220, S: 160 }, image: "assets/images/migrated-sf-19.webp" },
         { id: "sf-20", name: "لذة الملوك", nameEn: "Kings Delight", description: "سلامي، بسطرمة، روست بيف، تركي، كيري", prices: { L: 250, M: 180, S: 150 }, image: "assets/images/migrated-sf-20.webp" },
         { id: "sf-21", name: "قنبلة", nameEn: "The Bomb", description: "مفروم، سجق، بسطرمة، كيري، شيدر، رومي", prices: { L: 240, M: 180, S: 120 }, image: "assets/images/migrated-sf-21.webp" },
-        { id: "sf-22", name: "بسطرمة كريانا", nameEn: "Pastrami Kiriana", description: "بسطرمة، كيري، شيدر، رومي، خضار، موتزاريلا", prices: { L: 240, M: 180 }, image: "assets/images/migrated-sf-22.webp" }
+        { id: "sf-22", name: "بسطرمة كريانا", nameEn: "Pastrami Kiriana", description: "بسطرمة، كيري، شيدر، رومي، خضار، موتزاريلا", prices: { L: 240, M: 180 }, image: "assets/images/migrated-sf-22.webp" },
       ],
     },
     {
@@ -134,7 +134,7 @@ const MENU_DATA = {
         { id: "swf-11", name: "شيكولاته ميكس", nameEn: "Mixed Chocolate", description: "شيكولاته، شيكولاته بيضاء، كاسترد، سكر، لبن", prices: { L: 230, M: 165 }, image: "assets/images/migrated-swf-11.webp" },
         { id: "swf-12", name: "بلاك فورست", nameEn: "Black Forest", description: "نصف شيكولاته، نصف فواكه، مكسرات", prices: { L: 240, M: 170 }, image: "assets/images/migrated-swf-12.webp" },
         { id: "swf-13", name: "فروتي", nameEn: "Fruity", description: "فواكه مشكلة، قشطة، عسل، كرز", prices: { L: 180, M: 140 }, image: "assets/images/migrated-swf-13.webp" },
-        { id: "swf-14", name: "بسبوسة أو كنافة", nameEn: "Basbousa or Kunafa", description: "بسبوسة أو كنافة، كاسترد، سكر، لبن، سمن", prices: { L: 180, M: 120 }, image: "assets/images/migrated-swf-14.webp" }
+        { id: "swf-14", name: "بسبوسة أو كنافة", nameEn: "Basbousa or Kunafa", description: "بسبوسة أو كنافة، كاسترد، سكر، لبن، سمن", prices: { L: 180, M: 120 }, image: "assets/images/migrated-swf-14.webp" },
       ],
     },
     {
@@ -149,7 +149,7 @@ const MENU_DATA = {
         { id: "sw-5", name: "صاروخ فراخ", nameEn: "Chicken Sarokh", description: "", prices: { L: 160, M: 120 }, image: "assets/images/sarokh-chicken.jpg" },
         { id: "sw-6", name: "صاروخ بسطرمة كيري", nameEn: "Pastrami Kiri Sarokh", description: "", prices: { L: 160, M: 120 }, image: "assets/images/sarokh-pastrami-kiri.jpg" },
         { id: "sw-7", name: "صاروخ سوبر سوبريم", nameEn: "Super Supreme Sarokh", description: "", prices: { L: 160, M: 120 }, image: "assets/images/sarokh-supreme.jpg" },
-        { id: "sw-8", name: "صاروخ لذة الملوك", nameEn: "Kings Delight Sarokh", description: "", prices: { L: 160, M: 120 }, image: "assets/images/sarokh-kings.jpg" }
+        { id: "sw-8", name: "صاروخ لذة الملوك", nameEn: "Kings Delight Sarokh", description: "", prices: { L: 160, M: 120 }, image: "assets/images/sarokh-kings.jpg" },
       ],
     },
     {
@@ -163,7 +163,7 @@ const MENU_DATA = {
         { id: "sn-4", name: "ستربس", nameEn: "Strips", description: "", prices: { L: 75, M: 55, S: 60 }, image: "assets/images/migrated-sn-4.webp" },
         { id: "sn-5", name: "بطاطس", nameEn: "Fries", description: "", prices: { L: 50, M: 35, S: 40 }, image: "assets/images/migrated-sn-5.webp" },
         { id: "sn-6", name: "كبدة إسكندراني", nameEn: "Alexandrian Liver", description: "", prices: { L: 60, M: 40, S: 45 }, image: "assets/images/migrated-sn-6.webp" },
-        { id: "sn-7", name: "كفتة", nameEn: "Kofta", description: "", prices: { L: 70, M: 50, S: 55 }, image: "assets/images/migrated-sn-7.webp" }
+        { id: "sn-7", name: "كفتة", nameEn: "Kofta", description: "", prices: { L: 70, M: 50, S: 55 }, image: "assets/images/migrated-sn-7.webp" },
       ],
     },
     {
@@ -178,7 +178,7 @@ const MENU_DATA = {
         { id: "ml-5", name: "وجبة نص كفتة", nameEn: "Half Kofta Meal", description: "", price: 200, image: "assets/images/migrated-ml-5.webp" },
         { id: "ml-6", name: "كيلو كفتة", nameEn: "Kilo Kofta", description: "", price: 400, image: "assets/images/migrated-ml-6.webp" },
         { id: "ml-7", name: "ساندوتش كفتة عيش بلدي", nameEn: "Kofta Baladi Sandwich", description: "", price: 30, image: "assets/images/meal-kofta-baladi.jpg" },
-        { id: "ml-8", name: "ساندوتش كبدة عيش بلدي", nameEn: "Liver Baladi Sandwich", description: "", price: 30, image: "assets/images/meal-liver-baladi.jpg" }
+        { id: "ml-8", name: "ساندوتش كبدة عيش بلدي", nameEn: "Liver Baladi Sandwich", description: "", price: 30, image: "assets/images/meal-liver-baladi.jpg" },
       ],
     },
     {
@@ -200,7 +200,7 @@ const MENU_DATA = {
         { id: "pa-12", name: "باستا ميكس فراخ", nameEn: "Chicken Mix Pasta", description: "", price: 130, image: "assets/images/migrated-pa-12.webp" },
         { id: "pa-13", name: "وايت شريمب", nameEn: "White Shrimp", description: "جمبري، بيني، صوص كريمة", price: 160, image: "assets/images/migrated-pa-13.webp" },
         { id: "pa-14", name: "اسباجيتي جمبري", nameEn: "Shrimp Spaghetti", description: "", price: 150, image: "assets/images/migrated-pa-14.webp" },
-        { id: "pa-15", name: "اسباجيتي فواكه البحر", nameEn: "Seafood Spaghetti", description: "جمبري، كالاماري، خضار", price: 160, image: "assets/images/migrated-pa-15.webp" }
+        { id: "pa-15", name: "اسباجيتي فواكه البحر", nameEn: "Seafood Spaghetti", description: "جمبري، كالاماري، خضار", price: 160, image: "assets/images/migrated-pa-15.webp" },
       ],
     },
     {
@@ -210,7 +210,7 @@ const MENU_DATA = {
       items: [
         { id: "hw-1", name: "حواوشي إسكندراني (لحمة أو سجق)", nameEn: "Meat or Sojouk", description: "", prices: { L: 75, M: 50 }, image: "assets/images/migrated-hw-1.webp" },
         { id: "hw-2", name: "حواوشي إسكندراني مخصوص", nameEn: "Special Hawawshi", description: "مع موتزاريلا", prices: { L: 80, M: 60 }, image: "assets/images/migrated-hw-2.webp" },
-        { id: "hw-3", name: "حواوشي عيش بلدي", nameEn: "Baladi Bread Hawawshi", description: "", price: 30, image: "assets/images/migrated-hw-3.webp" }
+        { id: "hw-3", name: "حواوشي عيش بلدي", nameEn: "Baladi Bread Hawawshi", description: "", price: 30, image: "assets/images/migrated-hw-3.webp" },
       ],
     },
     {
@@ -222,7 +222,7 @@ const MENU_DATA = {
         { id: "cz-2", name: "لحمة", nameEn: "Meat", description: "", price: 100, image: "assets/images/migrated-cz-2.webp" },
         { id: "cz-3", name: "سوسيس", nameEn: "Hot Dog", description: "", price: 100, image: "assets/images/migrated-cz-3.webp" },
         { id: "cz-4", name: "سجق", nameEn: "Sojouk", description: "", price: 100, image: "assets/images/migrated-cz-4.webp" },
-        { id: "cz-5", name: "ميكس لحوم", nameEn: "Meat Mix", description: "", price: 110, image: "assets/images/migrated-cz-5.webp" }
+        { id: "cz-5", name: "ميكس لحوم", nameEn: "Meat Mix", description: "", price: 110, image: "assets/images/migrated-cz-5.webp" },
       ],
     },
     {
@@ -233,7 +233,7 @@ const MENU_DATA = {
         { id: "ad-1", name: "جبنة", nameEn: "Cheese", description: "", prices: { L: 40, M: 30, S: 20 }, image: "assets/images/add-cheese.jpg" },
         { id: "ad-2", name: "لحوم", nameEn: "Meats", description: "", prices: { L: 40, M: 30, S: 20 }, image: "assets/images/add-meats.jpg" },
         { id: "ad-3", name: "أسماك", nameEn: "Fish", description: "", price: 50, image: "assets/images/add-fish.jpg" },
-        { id: "ad-4", name: "بطاطس", nameEn: "Fries", description: "", price: 10, image: "assets/images/add-fries.jpg" }
+        { id: "ad-4", name: "بطاطس", nameEn: "Fries", description: "", price: 10, image: "assets/images/add-fries.jpg" },
       ],
     },
     {
@@ -244,7 +244,7 @@ const MENU_DATA = {
         { id: "ap-1", name: "كلوسلو", nameEn: "Coleslaw", description: "", price: 25, image: "assets/images/migrated-ap-1.webp" },
         { id: "ap-2", name: "سلطة خضراء", nameEn: "Green Salad", description: "", price: 10, image: "assets/images/migrated-ap-2.webp" },
         { id: "ap-3", name: "بوم فريت", nameEn: "Pomme Frites", description: "", prices: { L: 50, M: 30 }, image: "assets/images/app-fries.jpg" },
-        { id: "ap-4", name: "عيش بالثوم", nameEn: "Garlic Bread", description: "", price: 25, image: "assets/images/app-garlic-bread.jpg" }
+        { id: "ap-4", name: "عيش بالثوم", nameEn: "Garlic Bread", description: "", price: 25, image: "assets/images/app-garlic-bread.jpg" },
       ],
     },
     {
@@ -253,13 +253,26 @@ const MENU_DATA = {
       nameAr: "مشلتت",
       items: [
         { id: "ms-1", name: "مشلتت سادة", nameEn: "Plain Meshaltet", description: "", prices: { L: 200, M: 150 }, image: "assets/images/migrated-ms-1.webp" },
-        { id: "ms-2", name: "مشلتت ست الحسن", nameEn: "Set El Hosn Meshaltet", description: "اسأل عن السعر", image: "assets/images/migrated-ms-2.webp" }
+        { id: "ms-2", name: "مشلتت ست الحسن", nameEn: "Set El Hosn Meshaltet", description: "اسأل عن السعر", image: "assets/images/migrated-ms-2.webp" },
       ],
     }
   ],
 };
 
 const SOCIAL_LINKS = {
-  whatsapp: "https://wa.me/201091728680",
-  facebook: " https://www.facebook.com/share/1chNVD18vN/?mibextid=wwXIfr",
+  whatsapp: "https://wa.me/201034352138",
+  facebook: "https://www.facebook.com/share/1C3DDVYQsx/?mibextid=wwXIfr",
+};
+
+/**
+ * عرض اليوم — يظهر كبانر أسفل الهيدر مباشرة في الصفحة الرئيسية.
+ * عدّل active إلى false لإخفاء البانر تلقائياً.
+ */
+const DAILY_OFFER = {
+  active: true,
+  title: "خش توقع نتيجة مباراة منتخبنا على الفيس بتاعنا ونفذ الشروط عشان تكسب العرض معانا",
+  item: "كريب على مزاجك",
+  oldPrice: 0,
+  newPrice: 0,
+  note: "العرض هيتقفل قبل الماتش بنص ساعه",
 };
