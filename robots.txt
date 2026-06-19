@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmedmooo159-pixel.github.io/finalmenu/sitemap.xml
