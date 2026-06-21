@@ -1,18 +1,19 @@
 /**
  * ═══════════════════════════════════════════════════════════
  *  ملف البيانات — تم إنشاؤه من لوحة التحكم Admin Panel
- *  Restaurant: موقع اختباري
+ *  Restaurant: لذة الملوك
  * ═══════════════════════════════════════════════════════════
  */
 
 const MENU_DATA = {
   restaurant: {
-    name: "موقع اختباري",
-    nameEn: "test",
-    welcome: "########",
-    tagline: "############",
-    phones: ["1111111111111", "222222222222", "333333333333"],
-    address: "مول سايلو",
+    name: "لذة الملوك",
+    nameEn: "Lazat Al-Molouk",
+    welcome: "فطائر - بيتزا - باستا",
+    tagline: "لما البيتزا تبقى تحفة فنية مش مجرد أكلة",
+    logo: "assets/logo/logo.jpeg",
+    phones: ["01034356136", "01123889069", "01034352138"],
+    address: "سوق المنطقة السابعة بجوار ماركت أبو غزالة",
     deliveryNote: "أسرع دليفرى في مصر",
   },
   categories: [
@@ -259,8 +260,8 @@ const MENU_DATA = {
 };
 
 const SOCIAL_LINKS = {
-  whatsapp: "",
-  facebook: "",
+  whatsapp: "https://wa.me/201034352138",
+  facebook: "https://www.facebook.com/share/1C3DDVYQsx/?mibextid=wwXIfr",
 };
 
 /**
@@ -269,7 +270,7 @@ const SOCIAL_LINKS = {
  */
 const DAILY_OFFER = {
   active: true,
-  title: "توقع نتيجة مباراة منتخبنا على الفيس  عشان تكسب العرض معانا",
+  title: " توقع نتيجة مباراة منتخبنا على الفيس عشان تكسب العرض معانا",
   item: "كريب على مزاجك",
   oldPrice: 0,
   newPrice: 0,
