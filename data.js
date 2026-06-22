@@ -260,8 +260,8 @@ const MENU_DATA = {
 };
 
 const SOCIAL_LINKS = {
-  whatsapp: "https://wa.me/201034352138",
-  facebook: "https://www.facebook.com/share/1C3DDVYQsx/?mibextid=wwXIfr",
+  whatsapp: "",
+  facebook: "",
 };
 
 /**
@@ -270,9 +270,9 @@ const SOCIAL_LINKS = {
  */
 const DAILY_OFFER = {
   active: true,
-  title: " توقع نتيجة مباراة منتخبنا على الفيس عشان تكسب العرض معانا",
-  item: "كريب على مزاجك",
+  title: "تابعنا للعروض اول بأول",
+  item: "ً",
   oldPrice: 0,
   newPrice: 0,
-  note: "العرض هيتقفل قبل الماتش بنص ساعه",
+  note: "",
 };
